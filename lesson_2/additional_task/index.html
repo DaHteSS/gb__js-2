@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/main.css">
+  <title>Меню</title>
+</head>
+<body>
+  <div class="container">
+    <div class="menu">
+      <h1>Menu</h1>
+      <form class="menu__form">
+        <div class="menu__form-row">
+          <span class="menu__form-title">Размер бургера</span>
+          <label class="menu__label">
+            <input class="menu__input-size" checked type="radio" name="size" value="small"> Маленький
+          </label>
+          <label class="menu__label">
+            <input class="menu__input-size" type="radio" name="size" value="big"> Большой
+          </label>
+        </div>
+        <div class="menu__form-row">
+          <span class="menu__form-title">Начинка бургера</span>
+          <label class="menu__label">
+            <input class="menu__input-stuffing" checked type="radio" name="topping" value="cheese"> Сыр
+          </label>
+          <label class="menu__label">
+            <input class="menu__input-stuffing" type="radio" name="topping" value="salad"> Салат
+          </label>
+          <label class="menu__label">
+            <input class="menu__input-stuffing" type="radio" name="topping" value="potato"> Картофель
+          </label>
+        </div>
+        <div class="menu__form-row">
+          <span class="menu__form-title">Приправы</span>
+          <label class="menu__label">
+            <input class="menu__input-topping" type="checkbox" value="flavoring"> Приправа
+          </label>
+          <label class="menu__label">
+            <input class="menu__input-topping" type="checkbox" value="mayonnaise"> Майонез
+          </label>
+        </div>
+      </form>
+      <span class="menu__price"></span>
+      <span class="menu__calories"></span>
+    </div>
+  </div>
+  <script src="js/index.js"></script>
+</body>
+</html>
