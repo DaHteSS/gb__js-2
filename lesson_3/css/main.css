@@ -92,3 +92,42 @@ body {
   right: 10px;
   cursor: pointer;
 }
+.cart__clean {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  width: 150px;
+  height: 40px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 2px solid #531253;
+  color: #531253;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.cart__items-title {
+  font-weight: bold;
+}
+
+.cart__item-remove {
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  width: 150px;
+  height: 40px;
+  box-sizing: border-box;
+  background: transparent;
+  border: 2px solid #531253;
+  color: #531253;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+.cart__items-wrapper_hidden {
+  display: none;
+}
