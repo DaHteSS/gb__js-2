@@ -60,7 +60,7 @@ class Validation {
   }
 
   validateFromDom($el, regExp) {
-    if($el.value.length === 0 && !regExp.test($el.value)) {
+    if(!regExp.test($el.value)) {
       $el.classList.add('error');
 
       setTimeout(() => {
