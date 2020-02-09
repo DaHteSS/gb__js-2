@@ -1,4 +1,4 @@
-const API_URL = "https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses";
+const API_URL = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
 
 function debounce(callback, wait, immediate) {
   let timeout;
@@ -18,17 +18,47 @@ function debounce(callback, wait, immediate) {
   }
 }
 
-// Попытался реализовать поиск, но вообще не понимаю, как можно передать данные из компонента в родительскую функцию :(
+Vue.component('error-message', {
+  data: () => ({
+    error: null,
+  }),
+  template: `
+    <div class="error">
+      <span class="error__text" v-if="error">Произошла ошибка при отображении товаров. {{ error }}</span>
+    </div>
+  `,
+  methods: {
+    notify(error) {
+      this.error = error;
+      setTimeout(() => this.clean(), 2000);
+    },
+    clean() {
+      this.error = null;
+    }
+  }
+});
+
 Vue.component('goods-search', {
+  props: ['goods', 'filteredGoods'],
+  computed: {
+    filter() {
+      return debounce((event) => {
+        const regexp = new RegExp(event.target.value.trim(), 'i');
+        const filteredGoods =  this.goods.filter((good) => regexp.test(good.product_name));
+
+        this.$emit('update:filteredGoods', filteredGoods);
+      }, 300);
+    }
+  },
   template: `
         <form class="search">
-            <input type="text" @input="$emit('inputValue', $event.target.value)" class="search__input" placeholder="Поиск">
+            <input type="text" @input="filter" class="search__input" placeholder="Поиск">
         </form>
     `
 });
 
 Vue.component('goods-cart', {
-  data: function() {
+  data: () => {
     return {
       isVisibleCart: false
     }
@@ -104,21 +134,19 @@ const app = new Vue({
 
         if (window.XMLHttpRequest) {
           xhr = new window.XMLHttpRequest();
-        } else {
-          xhr = new window.ActiveXObject('Microsoft.XMLHTTP');
-        }
+        } else xhr = new window.ActiveXObject('Microsoft.XMLHTTP');
+
         xhr.onreadystatechange = () => {
           if (xhr.readyState === 4) {
             if (xhr.status === 200) {
               const body = JSON.parse(xhr.responseText);
+
               resolve(body);
-            } else {
-              reject(new Error("Network Error"));
-            }
+            } else reject(new Error('Network Error'));
           }
         }
-        xhr.onerror = (err) => reject(err);
 
+        xhr.onerror = (err) => reject(err);
         xhr.open('GET', url);
         xhr.send();
       });
@@ -128,20 +156,12 @@ const app = new Vue({
         this.goods = await this.makeGETRequest(`${API_URL}/catalogData.json`);
         this.filteredGoods = [...this.goods];
       } catch (error) {
+        this.$refs.error.notify(error);
         console.error(error);
       }
     },
   },
-  computed: {
-    filterGoods(value) {
-      return debounce(() => {
-        const regexp = new RegExp(value.trim(), 'i');
-
-        return this.filteredGoods.filter((good) => regexp.test(good.product_name));
-      }, 300);
-    }
-  },
   mounted() {
-    this.fetchGoods();
+    this.$nextTick(() => this.fetchGoods());
   }
 });

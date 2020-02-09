@@ -132,3 +132,17 @@ body {
 .cart__items-wrapper_hidden {
   display: none;
 }
+
+.error {
+  width: 250px;
+  color: #fff;
+  background: rgb(194, 51, 51);
+  position: fixed;
+  right: 10px;
+  top: 10px;
+}
+
+.error__text {
+  display: block;
+  padding: 30px;
+}

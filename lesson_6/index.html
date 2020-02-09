@@ -12,9 +12,10 @@
 
 <body>
   <div id="app">
+    <error-message ref="error"></error-message>
     <header class="header">
       <div class="container header__container">
-        <goods-search></goods-search>
+        <goods-search :goods="goods" :filtered-goods.sync="filteredGoods"></goods-search>
         <goods-cart></goods-cart>
       </div>
     </header>
